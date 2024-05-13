@@ -29,7 +29,8 @@ function getCountryByIP() {
         .then(response => response.json())
         .then(data => {
             const country = data.country;
-            // TODO inject country to form and call getCountryCode(country) function
+            countryInput.value = country;
+            getCountryCode(country);
         })
         .catch(error => {
             console.error('Błąd pobierania danych z serwera GeoJS:', error);
@@ -48,7 +49,8 @@ function getCountryCode(countryName) {
     })
     .then(data => {        
         const countryCode = data[0].idd.root + data[0].idd.suffixes.join("")
-        // TODO inject countryCode to form
+        console.log(countryCode)
+        phoneCountryCodeInput.value = countryCode; 
     })
     .catch(error => {
         console.error('Wystąpił błąd:', error);
@@ -60,5 +62,36 @@ function getCountryCode(countryName) {
     // nasłuchiwania na zdarzenie kliknięcia myszką
     document.addEventListener('click', handleClick);
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const vatCheckbox = document.getElementById('vatUE');
+        const vatNumberInput = document.getElementById('vatNumber');
+        function toggleVatNumber(enabled) {
+            vatNumberInput.disabled = !enabled;
+        }
+        toggleVatNumber(vatCheckbox.checked);
+        vatCheckbox.addEventListener('change', function() {
+            toggleVatNumber(this.checked);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const fakturaVatCheckbox = document.getElementById('FakturaVat');
+        const additionalFieldsContainer = document.getElementById('additionalFieldsContainer');
+    
+        // Funkcja do ukrywania lub pokazywania dodatkowych pól na podstawie checkboxa "Faktura Vat"
+        function toggleAdditionalFieldsVisibility() {
+            additionalFieldsContainer.style.display = fakturaVatCheckbox.checked ? 'block' : 'none';
+        }
+    
+        // Ustaw początkowy stan widoczności dodatkowych pól na podstawie checkboxa "Faktura Vat"
+        toggleAdditionalFieldsVisibility();
+    
+        // Dodaj nasłuchiwacz zdarzeń do checkboxa "Faktura Vat"
+        fakturaVatCheckbox.addEventListener('change', function() {
+            toggleAdditionalFieldsVisibility();
+        });
+    });
+
     fetchAndFillCountries();
+    getCountryByIP();
 })()

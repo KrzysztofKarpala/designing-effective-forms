@@ -1,3 +1,10 @@
 .modal {
     background: #c6d0ff7a;
 }
+#countryCode {
+    width: 15%; /* Możesz dostosować tę wartość w zależności od Twoich preferencji */
+}
+
+#phoneNumber {
+    width: 85%; /* Reszta przestrzeni dostępna dla numeru telefonu */
+}
