@@ -49,7 +49,6 @@ function getCountryCode(countryName) {
     })
     .then(data => {        
         const countryCode = data[0].idd.root + data[0].idd.suffixes.join("")
-        console.log(countryCode)
         phoneCountryCodeInput.value = countryCode; 
     })
     .catch(error => {
@@ -58,8 +57,8 @@ function getCountryCode(countryName) {
 }
 
 
+
 (() => {
-    // nasłuchiwania na zdarzenie kliknięcia myszką
     document.addEventListener('click', handleClick);
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -78,15 +77,12 @@ function getCountryCode(countryName) {
         const fakturaVatCheckbox = document.getElementById('FakturaVat');
         const additionalFieldsContainer = document.getElementById('additionalFieldsContainer');
     
-        // Funkcja do ukrywania lub pokazywania dodatkowych pól na podstawie checkboxa "Faktura Vat"
         function toggleAdditionalFieldsVisibility() {
             additionalFieldsContainer.style.display = fakturaVatCheckbox.checked ? 'block' : 'none';
         }
-    
-        // Ustaw początkowy stan widoczności dodatkowych pól na podstawie checkboxa "Faktura Vat"
+
         toggleAdditionalFieldsVisibility();
-    
-        // Dodaj nasłuchiwacz zdarzeń do checkboxa "Faktura Vat"
+
         fakturaVatCheckbox.addEventListener('change', function() {
             toggleAdditionalFieldsVisibility();
         });
@@ -95,3 +91,4 @@ function getCountryCode(countryName) {
     fetchAndFillCountries();
     getCountryByIP();
 })()
+
